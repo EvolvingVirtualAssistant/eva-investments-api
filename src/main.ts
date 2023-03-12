@@ -46,13 +46,13 @@ function initializeEnvVars() {
 }
 
 function getEnvVar(envVar: string): string {
-  const port = process.env[envVar];
+  const value = process.env[envVar];
 
-  if (port == null) {
+  if (value == null) {
     throw new Error(`Environment variable '${envVar}' is missing`);
   }
 
-  return port;
+  return value;
 }
 
 async function bootstrap() {
