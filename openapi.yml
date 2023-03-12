@@ -1,0 +1,60 @@
+openapi: '3.0.2'
+info:
+  title: E.V.A Investments API
+  description: Investments module API integrated in E.V.A
+  license:
+    name: MIT
+    url: https://github.com/EvolvingVirtualAssistant/eva-investments-api/blob/main/LICENSE
+  version: '1.0'
+servers:
+  - url: https://{host}:{port}/{basePath}
+    description: Custom Server
+    variables:
+      host:
+        default: localhost
+      port:
+        default: '3000'
+      basePath:
+        default: v1
+tags:
+  - name: Arbitrages
+    description: Arbitrages operations
+paths:
+  /arbitrages:
+    get:
+      tags:
+        - Arbitrages
+      summary: Lists all arbitrages
+      description: Multiple filters can be provided
+      operationId: getArbitrages
+      parameters:
+        - name: status
+          in: query
+          description: The status can be either 'active' for arbitrages that are executing or 'inactive' for arbitrages that are not executing
+          required: false
+          schema:
+            $ref: '#/components/schemas/ArbitrageStatus'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Arbitrage'
+components:
+  schemas:
+    Arbitrage:
+      type: object
+      properties:
+        pools:
+          type: array
+          
+        status:
+          $ref: '#/components/schemas/ArbitrageStatus'
+    ArbitrageStatus:
+      type: string
+      enum:
+        - 'active'
+        - 'inactive'
