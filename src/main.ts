@@ -63,6 +63,7 @@ async function bootstrap() {
 
   const app = await NestFactory.create(AppModule);
   app.setGlobalPrefix(apiVersion);
+
   await app.listen(port);
 }
 bootstrap();
